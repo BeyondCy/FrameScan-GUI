@@ -11,7 +11,9 @@ from GUI.showPlugins import Ui_Form
 import win32con
 import win32clipboard as wincld
 from Plugins.Plugins import *
-# from common.readqssfile import Common
+import frozen_dir
+SETUP_DIR = frozen_dir.app_path()
+sys.path.append(SETUP_DIR)
 DB_NAME = 'POC_DB.db'
 # 禁用安全警告
 requests.packages.urllib3.disable_warnings()
@@ -96,7 +98,7 @@ class MainWindows(QtWidgets.QMainWindow,Ui_MainWindow): #主窗口
     def showtime(self):
         datetime = QDateTime.currentDateTime()
         text = datetime.toString("yyyy-MM-dd hh:mm:ss")
-        self.setWindowTitle("FrameScan  V1.0测试版 191021      %s"%text)
+        self.setWindowTitle("FrameScan  V1.1测试版 191029      %s"%text)
     #开始扫描
     def vuln_Start(self):
         self.Ui.textEdit_log.clear()
@@ -173,8 +175,8 @@ class MainWindows(QtWidgets.QMainWindow,Ui_MainWindow): #主窗口
                     (time.strftime('%H:%M:%S', time.localtime(time.time()))),poc,e))
     #初始化加载插件
     def loadplugins(self):
-        path = sys.path[0]
-        if os.path.isfile(path+'/'+DB_NAME):
+
+        if os.path.isfile(SETUP_DIR+'/'+DB_NAME):
             conn = sqlite3.connect(DB_NAME)
         else:
             box = QtWidgets.QMessageBox()
@@ -333,13 +335,12 @@ class MainWindows(QtWidgets.QMainWindow,Ui_MainWindow): #主窗口
 
     # 重新加载插件
     def vuln_reload_Plugins(self):
-        path_conn = sys.path[0]
         self.Ui.treeWidget_Plugins.clear()
         # 删除数据库，重新建立
-        if os.path.isfile(DB_NAME):
+        if os.path.isfile(SETUP_DIR+'/'+DB_NAME):
             try:
                 # print(DB_NAME)
-                os.remove(path_conn+'/'+DB_NAME)
+                os.remove(SETUP_DIR+'/'+DB_NAME)
             except Exception as e:
                 self.Ui.textEdit_log.append("[%s]Error:数据库文件删除失败！\n[Exception]:\n%s" % (
                 (time.strftime('%H:%M:%S', time.localtime(time.time()))), e))
@@ -364,7 +365,7 @@ class MainWindows(QtWidgets.QMainWindow,Ui_MainWindow): #主窗口
                 "[%s]Error:数据框创建失败！\n[Exception]:\n%s" % (time.strftime('%H:%M:%S', time.localtime(time.time())), e))
             return 0
         try:
-            cms_path = path_conn + "/Plugins"
+            cms_path = SETUP_DIR+"/Plugins"
             cms_path = cms_path.replace("\\", "/")
             # 创建一个文件来存储引入的模块
             cmsmain_file = open(cms_path + "/Plugins.py", "w", encoding="utf-8")
@@ -472,12 +473,12 @@ class MainWindows(QtWidgets.QMainWindow,Ui_MainWindow): #主窗口
         box.about(self, "About", "\t\t\tAbout\n       此程序为一款CMS扫描工具，可自行选择扫描的插件进行漏洞检查，请勿非法使用！\n\t\t\t   Powered by qanxiao996")
     #更新
     def version_update(self):
-        webbrowser.open("http://blog.qianxiao996.cn")
+        webbrowser.open("https://github.com/qianxiao996/FrameScan-GUI")
     #版本
     def version(self):
         box = QtWidgets.QMessageBox()
         box.setIcon(1)
-        box.about (self, "版本", "FrameScan\nV1.0测试版")
+        box.about (self, "版本", "FrameScan\nV1.1测试版")
     #意见反馈
     def ideas(self):
         box = QtWidgets.QMessageBox()
