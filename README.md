@@ -11,9 +11,9 @@ FrameScan-GUI是一款python3和Pyqt编写的具有图形化界面的cms漏洞�
 
 下载本项目，运行exe即可。
 
-![1](https://blog.qianxiao996.cn/wp-content/uploads/2019/10/1-1.jpg)
+![1](https://github.com/qianxiao996/FrameScan-GUI/blob/master/img/1.jpg)
 
-![2](https://blog.qianxiao996.cn/wp-content/uploads/2019/10/2.jpg)
+![2](https://github.com/qianxiao996/FrameScan-GUI/blob/master/img/2.jpg)
 
 ## 自定义POC模板
 
@@ -81,7 +81,7 @@ POC多数来源于[AngelSword](https://github.com/Sch01ar/AngelSword)
 
 ### 问题一
 
-![3](https://blog.qianxiao996.cn/wp-content/uploads/2019/10/3-1.png)
+![3](https://github.com/qianxiao996/FrameScan-GUI/blob/master/img/3.png)
 
 将Qt安装目录下的platforms文件夹复制到exe程序目录。若风格不同，复制styles文件夹到程序目录。
 
@@ -89,7 +89,7 @@ POC多数来源于[AngelSword](https://github.com/Sch01ar/AngelSword)
 
 若出现以下提示模块不存在，请pip安装模块或在Plugins.py中注释掉该行。
 
-![4](https://blog.qianxiao996.cn/wp-content/uploads/2019/10/4-1.png)
+![4](https://github.com/qianxiao996/FrameScan-GUI/blob/master/img/4.png)
 
 ```
 pyinstaller -F FrameScan-GUI.py --noconsole  -i img/main.ico
